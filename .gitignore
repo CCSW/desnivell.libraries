@@ -1,0 +1,18 @@
+######################
+# Directorios temporales
+######################
+Nop.Core/obj/
+Nop.Core/bin/
+Nop.Data/obj/
+Nop.Data/bin/
+Nop.Services/obj/
+Nop.Services/bin/
+######################
+# Logs and databases #
+######################
+*.log
+*.sqlite
+######################
+# OS generated files #
+######################
+Thumbs.db
