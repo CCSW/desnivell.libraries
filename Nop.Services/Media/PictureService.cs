@@ -163,11 +163,12 @@ namespace Nop.Services.Media
         /// <param name="originalSize">The original picture size</param>
         /// <param name="targetSize">The target picture size (longest side)</param>
         /// <returns></returns>
-        protected virtual  Size CalculateDimensions(Size originalSize, int targetSize)
+        protected virtual Size CalculateDimensions(Size originalSize, int targetSize)
         {
             var newSize = new Size();
-            if (originalSize.Height > originalSize.Width) // portrait 
+            if ((originalSize.Height + (originalSize.Width / 4)) >= originalSize.Width) // portrait or square
             {
+                targetSize = (targetSize / 4) * 3; // Mantener las dimensiones como si fueran 4/3
                 newSize.Width = (int)(originalSize.Width * (float)(targetSize / (float)originalSize.Height));
                 newSize.Height = targetSize;
             }
@@ -178,6 +179,7 @@ namespace Nop.Services.Media
             }
             return newSize;
         }
+
         
         /// <summary>
         /// Delete picture thumbs
