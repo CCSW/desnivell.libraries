@@ -168,6 +168,24 @@ namespace Nop.Services.Catalog
             var products = query.ToList();
             return products;
         }
+
+        // CMAS
+        public virtual IList<Product> GetProductsWithDiscountOrSpecialPrice()
+        {
+            //Track inventory for product variant
+            var query1 = from p in _productRepository.Table 
+                         join pv in _productVariantRepository.Table
+                         on p.Id equals pv.ProductId
+                         where (pv.SpecialPrice > 0) //&& pv.SpecialPriceStartDateTimeUtc <= DateTime.Today
+                         //&& pv.SpecialPriceEndDateTimeUtc >= DateTime.Today) || pv.HasDiscountsApplied == true
+                         select pv;
+            var productVariants1 = query1.ToList();
+            //Track inventory for product variant by product attributes
+            var result = new List<Product>();
+            result.AddRange(result);
+            return result;
+        }
+        // AÑADIDO CMAS
         
         /// <summary>
         /// Gets product
