@@ -30,7 +30,14 @@ namespace Nop.Services.Catalog
         /// </summary>
         /// <returns>Product collection</returns>
         IList<Product> GetAllProductsDisplayedOnHomePage();
-        
+
+        /// <summary>
+        /// Added by CMAS
+        /// Gets a product variant that have a special price or a discount
+        /// </summary>       
+        /// <returns>Product variant</returns>
+        IList<Product> GetProductsWithDiscountOrSpecialPrice();
+
         /// <summary>
         /// Gets product
         /// </summary>
