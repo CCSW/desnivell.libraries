@@ -169,21 +169,23 @@ namespace Nop.Services.Catalog
             return products;
         }
 
-        // CMAS
+        /// <summary>
+        /// CMAS --> Método que devuelve aquellos productos que tengan un precio especial (para un rango de fechas, por ejemplo del 1 al 31 de Agosto)
+        /// o bien un descuento activo
+        /// El propósito es mostrar la población resultado en el menú Ofertas.
+        /// </summary>
+        /// <returns></returns>
         public virtual IList<Product> GetProductsWithDiscountOrSpecialPrice()
         {
             //Track inventory for product variant
             var query1 = from p in _productRepository.Table 
                          join pv in _productVariantRepository.Table
                          on p.Id equals pv.ProductId
-                         where (pv.SpecialPrice > 0) //&& pv.SpecialPriceStartDateTimeUtc <= DateTime.Today
-                         //&& pv.SpecialPriceEndDateTimeUtc >= DateTime.Today) || pv.HasDiscountsApplied == true
-                         select pv;
-            var productVariants1 = query1.ToList();
-            //Track inventory for product variant by product attributes
-            var result = new List<Product>();
-            result.AddRange(result);
-            return result;
+                         where (pv.SpecialPrice > 0 && pv.SpecialPriceStartDateTimeUtc <= DateTime.Today
+                         && pv.SpecialPriceEndDateTimeUtc >= DateTime.Today) || pv.HasDiscountsApplied == true
+                         select p;
+            var products = query1.ToList();
+            return products;
         }
         // AÑADIDO CMAS
         
