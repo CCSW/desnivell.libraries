@@ -181,8 +181,8 @@ namespace Nop.Services.Catalog
             var query1 = from p in _productRepository.Table 
                          join pv in _productVariantRepository.Table
                          on p.Id equals pv.ProductId
-                         where (pv.SpecialPrice > 0 && pv.SpecialPriceStartDateTimeUtc <= DateTime.Today
-                         && pv.SpecialPriceEndDateTimeUtc >= DateTime.Today) || pv.HasDiscountsApplied == true
+                         where (p.Deleted == false ) && ((pv.SpecialPrice > 0 && pv.SpecialPriceStartDateTimeUtc <= DateTime.Today
+                         && pv.SpecialPriceEndDateTimeUtc >= DateTime.Today) || pv.OldPrice > 0 || pv.HasDiscountsApplied == true)
                          select p;
             var products = query1.ToList();
             return products;
