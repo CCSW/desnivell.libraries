@@ -146,8 +146,8 @@ namespace Nop.Services.Common
                 #region Header
 
                 //logo
-                var logoPicture = _pictureService.GetPictureById(_pdfSettings.LogoPictureId);
-                var logoExists = logoPicture != null;
+                //var logoPicture = _pictureService.GetPictureById(_pdfSettings.LogoPictureId);
+                var logoExists = true;// logoPicture != null;
 
                 //header
                 var headerTable = new PdfPTable(logoExists ? 2 : 1);
@@ -158,7 +158,8 @@ namespace Nop.Services.Common
                 //logo
                 if (logoExists)
                 {
-                    var logoFilePath = _pictureService.GetPictureLocalPath(logoPicture, 0, false);
+                   // var logoFilePath = _pictureService.GetPictureLocalPath(logoPicture, 0, false);
+                    var logoFilePath = _webHelper.GetStoreLocation() + "Content/Images/LogoFactura/logo.png";
                     var cellLogo = new PdfPCell(Image.GetInstance(logoFilePath));
                     cellLogo.Border = Rectangle.NO_BORDER;
                     headerTable.AddCell(cellLogo);
@@ -169,6 +170,7 @@ namespace Nop.Services.Common
                 cell.AddElement(new Paragraph(String.Format(_localizationService.GetResource("PDFInvoice.Order#", lang.Id), order.Id), titleFont));
                 var anchor = new Anchor(_storeInformationSettings.StoreUrl.Trim(new char[] { '/' }), font);
                 anchor.Reference = _storeInformationSettings.StoreUrl;
+                // AÑADIR AQUÍ DATOS EMPRESA
                 cell.AddElement(new Paragraph(anchor));
                 cell.AddElement(new Paragraph(String.Format(_localizationService.GetResource("PDFInvoice.OrderDate", lang.Id), _dateTimeHelper.ConvertToUserTime(order.CreatedOnUtc, DateTimeKind.Utc).ToString("D", new CultureInfo(lang.LanguageCulture))), font));
                 headerTable.AddCell(cell);
